@@ -1,21 +1,43 @@
-import React from 'react'
+import React, {useState} from 'react'
 import GraphContainer from './components/GraphContainer'
 import {useSelector} from 'react-redux'
 import {getCallByDayByMonthSelector} from '../data/selectors/getCallByDayByMonthSelector'
 import {ResponsiveLine} from '@nivo/line'
+import {getAverageParticipantsByDayByMonthSelector} from '../data/selectors/getAverageParticipantsByDayByMonthSelector'
 
 const CallByDayTimeline = () => {
-    const data = useSelector(getCallByDayByMonthSelector)
+    const callData = useSelector(getCallByDayByMonthSelector)
+    const participantsData = useSelector(getAverageParticipantsByDayByMonthSelector)
 
-    return  <GraphContainer title="Call By day" sm={12}>
+    const data = [
+        {
+            id: "Call started",
+            data: callData,
+            color: "#FF0000",
+        }, {
+            id: "Average participants",
+            data: participantsData,
+            color: "#0000FF"
+        }]
+
+    const [selectedData, setSelectedData] = useState(null)
+
+    return <GraphContainer title="Call By day" sm={12}>
         <ResponsiveLine
-            data={[{
-             id:"Call started",
-             data
-            }]}
-            margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-            xScale={{ type: 'point' }}
-            yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: true, reverse: false }}
+            data={data.filter(item => {
+                if(selectedData) {
+                    if(item.id === selectedData.id) {
+                        return 1
+                    } else {
+                        return 0
+                    }
+                } else {
+                    return 1
+                }
+            })}
+            margin={{top: 50, right: 110, bottom: 50, left: 60}}
+            xScale={{type: 'point'}}
+            yScale={{type: 'linear', min: 'auto', max: 'auto', stacked: true, reverse: false}}
             curve="cardinal"
             axisBottom={{
                 orient: 'bottom',
@@ -35,11 +57,11 @@ const CallByDayTimeline = () => {
                 legendOffset: -40,
                 legendPosition: 'middle'
             }}
-            colors={{ scheme: 'nivo' }}
+            colors={{scheme: 'nivo'}}
             pointSize={10}
-            pointColor={{ theme: 'background' }}
+            pointColor={{theme: 'background'}}
             pointBorderWidth={2}
-            pointBorderColor={{ from: 'serieColor' }}
+            pointBorderColor={{from: 'serieColor'}}
             pointLabel="y"
             pointLabelYOffset={-12}
             enableArea={true}
@@ -68,7 +90,19 @@ const CallByDayTimeline = () => {
                                 itemOpacity: 1
                             }
                         }
-                    ]
+                    ],
+                    onClick: (d) => {
+                        if (selectedData) {
+                            if (selectedData.id !== d.id) {
+                                setSelectedData(d)
+                            } else {
+                                setSelectedData(null)
+                            }
+
+                        } else {
+                            setSelectedData(d)
+                        }
+                    },
                 }
             ]}
         />
