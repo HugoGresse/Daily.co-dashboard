@@ -10,6 +10,7 @@ import StartTimeByDay from './graph/StartTimeByDay'
 import NumberOfParticipants from './graph/NumberOfParticipants'
 import {isLoadingSelector} from './data/dailyCoSelectors'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import CallByDayTimeline from './graph/CallByDayTimeline'
 
 
 // Call by day
@@ -47,6 +48,7 @@ function App() {
                         <AverageSessionDuration/>
                         <StartTimeByDay/>
                         <NumberOfParticipants/>
+                        <CallByDayTimeline/>
                     </Grid>
                 </Container>
             </main>
