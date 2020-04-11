@@ -11,7 +11,7 @@ const dailyCoReducer = (state = initState, { payload, type }) => {
         case MEETINGS_GET_SUCCESS:
             return {
                 ...state,
-                data: payload.data,
+                data: [...payload.data],
                 meetingCount: payload.meetingCount,
                 loaded: true
             }

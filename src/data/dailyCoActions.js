@@ -16,21 +16,28 @@ export const getMeetings = (fetchAll = false) => async (dispatch, getState) => {
             }
             meetings.push(...result.data)
             timestampStartingAfter = result.data[result.data.length - 1].id
+            dispatch({
+                type: MEETINGS_GET_SUCCESS,
+                payload: {
+                    meetingCount: meetings.length,
+                    data: meetings
+                }
+            })
         }
     } else {
 
         const result = await fetchMeetings()
         console.log(result)
         meetings.push(...result.data)
+        dispatch({
+            type: MEETINGS_GET_SUCCESS,
+            payload: {
+                meetingCount: meetings.length,
+                data: meetings
+            }
+        })
     }
 
-    dispatch({
-        type: MEETINGS_GET_SUCCESS,
-        payload: {
-            meetingCount: meetings.length,
-            data: meetings
-        }
-    })
 }
 
 const fetchMeetings = async (startingAfter) => {
