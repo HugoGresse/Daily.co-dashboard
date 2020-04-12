@@ -1,27 +1,25 @@
-import {createSelector} from 'reselect'
-import {getMeetingsSelector} from '../dailyCoSelectors'
+import { createSelector } from 'reselect'
+import { getMeetingsSelector } from '../dailyCoSelectors'
 
 export const getNumberOfParticipantsSelector = createSelector(
-    getMeetingsSelector,
-    meetings => {
+  getMeetingsSelector,
+  (meetings) => {
+    const participants = {}
 
-        const participants = {}
+    meetings.forEach((meeting) => {
+      const count = meeting.participants.length
+      if (!participants[count]) {
+        participants[count] = 0
+      }
+      participants[count] += 1
+    })
 
-        meetings.forEach(meeting => {
-            const count = meeting.participants.length
-            if(!participants[count]) {
-                participants[count] = 0
-            }
-            participants[count] += 1
-        })
-
-        return Object.keys(participants)
-            .map(participantCount => {
-                return {
-                    id: participantCount,
-                    label: `${participantCount} participant(s)`,
-                    value: participants[participantCount]
-                }
-            })
-    }
+    return Object.keys(participants).map((participantCount) => {
+      return {
+        id: participantCount,
+        label: `${participantCount} participant(s)`,
+        value: participants[participantCount],
+      }
+    })
+  }
 )

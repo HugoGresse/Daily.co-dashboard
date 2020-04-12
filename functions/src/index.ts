@@ -1,1 +1,1 @@
-export {getDailyCoMeetings} from './getDailyCoMeetings'
+export { getDailyCoMeetings } from './getDailyCoMeetings'
