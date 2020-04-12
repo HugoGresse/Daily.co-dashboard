@@ -11,6 +11,7 @@ import NumberOfParticipants from './graph/NumberOfParticipants'
 import {isLoadingSelector} from './data/dailyCoSelectors'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Timeline from './graph/Timeline'
+import Header from './Header'
 
 
 // call that should be ended
@@ -44,6 +45,7 @@ function App() {
             <main>
                 <Container maxWidth="lg">
                     <Grid container spacing={3}>
+                        <Header/>
                         <Timeline/>
                         <AverageSessionDuration/>
                         <StartTimeByDay/>

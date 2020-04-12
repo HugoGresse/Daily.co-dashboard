@@ -1,7 +1,12 @@
 {
-  "name": "instantvisio-dashboard",
+  "name": "dailyco-dashboard",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "deploy": "npm run build && firebase deploy"
+  },
   "dependencies": {
     "@material-ui/core": "^4.9.9",
     "@material-ui/lab": "^4.0.0-alpha.49",
@@ -21,11 +26,6 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "deploy": "npm run build && firebase deploy"
   },
   "eslintConfig": {
     "extends": "react-app"
