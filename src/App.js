@@ -8,39 +8,25 @@ import AverageSessionDuration from './graph/AverageSessionDuration'
 import Box from '@material-ui/core/Box'
 import StartTimeByDay from './graph/StartTimeByDay'
 import NumberOfParticipants from './graph/NumberOfParticipants'
-import {isLoadingSelector} from './data/dailyCoSelectors'
-import CircularProgress from '@material-ui/core/CircularProgress'
 import Timeline from './graph/Timeline'
 import Header from './Header'
 
 
 // call that should be ended
 // number of call ended, started, ongoing
-// duration when to participants in a call
+// duration when two participants in a call
 
 // live:
 // ongoing call
 function App() {
     const dispatch = useDispatch()
-    const isLoading = useSelector(isLoadingSelector)
 
     useEffect(() => {
         dispatch(getMeetings(true))
     }, [dispatch])
 
-    if(isLoading) {
-        return <Box
-            height='100vh'
-            width="100vw"
-            textAlign="center"
-            display="flex"
-            alignItems="center"
-            justifyContent="center">
-            <CircularProgress/></Box>
-    }
-
     return (
-        <Box marginTop={6}>
+        <Box marginTop={2}>
             <CssBaseline/>
             <main>
                 <Container maxWidth="lg">

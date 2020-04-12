@@ -1,4 +1,4 @@
-import {MEETINGS_GET_SUCCESS} from './dailyCoReducer'
+import {MEETINGS_GET_SUCCESS, MEETINGS_LOADED, MEETINGS_LOADING} from './dailyCoReducer'
 import {isLoadedSelector} from './dailyCoSelectors'
 import {functions} from './firebase'
 
@@ -6,6 +6,10 @@ export const getMeetings = (fetchAll = false) => async (dispatch, getState) => {
     if(isLoadedSelector(getState())) {
         return
     }
+
+    dispatch({
+        type: MEETINGS_LOADING
+    })
 
     const meetings = []
     if(fetchAll) {
@@ -25,6 +29,10 @@ export const getMeetings = (fetchAll = false) => async (dispatch, getState) => {
                 }
             })
         }
+
+        dispatch({
+            type: MEETINGS_LOADED
+        })
     } else {
         const result = await fetchMeetings()
         meetings.push(...result.data)
@@ -34,6 +42,9 @@ export const getMeetings = (fetchAll = false) => async (dispatch, getState) => {
                 meetingCount: meetings.length,
                 data: meetings
             }
+        })
+        dispatch({
+            type: MEETINGS_LOADED
         })
     }
 
