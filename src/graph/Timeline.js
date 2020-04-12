@@ -1,36 +1,37 @@
 import React, {useState} from 'react'
 import {getCallByDayByMonthSelector} from '../data/selectors/getCallByDayByMonthSelector'
-import {getAverageParticipantsByDayByMonthSelector} from '../data/selectors/getAverageParticipantsByDayByMonthSelector'
+import {getAverageParticipantsByDaySelector} from '../data/selectors/getAverageParticipantsByDaySelector'
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup'
 import ToggleButton from '@material-ui/lab/ToggleButton'
 import TimelineGraph from './TimelineGraph'
 import GraphContainer from './components/GraphContainer'
 import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
+import {getAverageParticipantsByDayByMonthSelector} from '../data/selectors/getAverageDurationByDaySelector'
 
 const Timeline = () => {
     const [selectedData, setSelectedData] = useState(null)
-        console.log(selectedData)
 
     const onGraphSelected = (e) => {
         switch (e.currentTarget.value) {
             case "participants" :
                 setSelectedData({
-                    selector: getAverageParticipantsByDayByMonthSelector,
+                    value: e.currentTarget.value,
+                    selector: getAverageParticipantsByDaySelector,
                     graphName: 'Average participants by call'
                 })
                 break;
             case "duration" :
-                // TODO
                 setSelectedData({
-                    selector: getCallByDayByMonthSelector,
-                    graphName: 'Average call duration'
+                    value: e.currentTarget.value,
+                    selector: getAverageParticipantsByDayByMonthSelector,
+                    graphName: 'Average call duration (minutes)'
                 })
-
                 break;
             default:
             case "call" :
                 setSelectedData({
+                    value: e.currentTarget.value,
                     selector: getCallByDayByMonthSelector,
                     graphName: 'Number of call started/ended'
                 })
@@ -47,7 +48,7 @@ const Timeline = () => {
         <Box display="flex" justifyContent="space-between">
             <Typography variant="h5">{selectedData.graphName}</Typography>
             <ToggleButtonGroup
-                value="left"
+                value={selectedData.value}
                 exclusive
                 onChange={onGraphSelected}
                 aria-label="text alignment"
@@ -63,8 +64,7 @@ const Timeline = () => {
                 </ToggleButton>
             </ToggleButtonGroup>
         </Box>
-    }
-                           >
+    }>
 
 
         {selectedData && <TimelineGraph

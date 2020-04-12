@@ -10,7 +10,7 @@ const TimelineGraph = ({selector, name}) => {
             id: "toto",
             data: data,
         }]}
-        margin={{top: 20, right: 10, bottom: 40, left: 30}}
+        margin={{top: 20, right: 10, bottom: 45, left: 30}}
         xScale={{type: 'point'}}
         yScale={{type: 'linear', min: 0, max: 'auto', stacked: true, reverse: false}}
         curve="cardinal"

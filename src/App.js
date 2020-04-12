@@ -13,7 +13,6 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import Timeline from './graph/Timeline'
 
 
-// Call by day
 // call that should be ended
 // number of call ended, started, ongoing
 // duration when to participants in a call

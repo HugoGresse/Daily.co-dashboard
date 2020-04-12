@@ -34,7 +34,7 @@ const StartTimeByDay = () => {
                     ]
                 ]
             }}
-            margin={{ bottom: 80, left: 100, top: 50 }}
+            margin={{ bottom: 50, left: 50, top: 50 }}
             axisBottom={{
                 orient: 'bottom',
                 tickSize: 10,
@@ -42,7 +42,7 @@ const StartTimeByDay = () => {
                 tickRotation: 0,
                 legend: 'week day',
                 legendPosition: 'middle',
-                legendOffset: 46
+                legendOffset: 40
             }}
             axisLeft={{
                 orient: 'left',
@@ -51,7 +51,7 @@ const StartTimeByDay = () => {
                 tickRotation: 0,
                 legend: 'hour',
                 legendPosition: 'middle',
-                legendOffset: -76
+                legendOffset: -40
             }}
             motionStiffness={50}
             motionDamping={10}

@@ -1,7 +1,7 @@
 import {createSelector} from 'reselect'
 import {getMeetingByDay} from '../dailyCoSelectors'
 
-export const getAverageParticipantsByDayByMonthSelector = createSelector(
+export const getAverageParticipantsByDaySelector = createSelector(
     getMeetingByDay,
     meetingsByDay => {
         return meetingsByDay.map(dayWithMeetings => {
