@@ -20,3 +20,8 @@ Some stats for Daily.co video call services.
 3. `cd functions && npm i`
 4. `cd functions && npm run serve`
 5. `npm start`
+
+# About
+Open source project made by [Hugo Gresse](https://hugo.gresse.io)  
+Hugo other projects:
+- [Open Feedback (event feedback SASS)](https://openfeedback.io/)
