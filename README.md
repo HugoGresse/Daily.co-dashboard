@@ -1,6 +1,8 @@
+# Daily.co unofficial dashboard
+
 Some stats for Daily.co video call services. 
 
-// TODO : add a picture
+![Screenshot](https://raw.githubusercontent.com/HugoGresse/Daily.co-dashboard/master/public/screenshot.png)
 
 # Setup:
 0. Clone this repo
