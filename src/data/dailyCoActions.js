@@ -1,5 +1,6 @@
 import {MEETINGS_GET_SUCCESS} from './dailyCoReducer'
 import {isLoadedSelector} from './dailyCoSelectors'
+import {functions} from './firebase'
 
 export const getMeetings = (fetchAll = false) => async (dispatch, getState) => {
     if(isLoadedSelector(getState())) {
@@ -25,9 +26,7 @@ export const getMeetings = (fetchAll = false) => async (dispatch, getState) => {
             })
         }
     } else {
-
         const result = await fetchMeetings()
-        console.log(result)
         meetings.push(...result.data)
         dispatch({
             type: MEETINGS_GET_SUCCESS,
@@ -41,12 +40,13 @@ export const getMeetings = (fetchAll = false) => async (dispatch, getState) => {
 }
 
 const fetchMeetings = async (startingAfter) => {
-    const endpoint = startingAfter ? `https://api.daily.co/v1/meetings?starting_after=${startingAfter}` : 'https://api.daily.co/v1/meetings'
-    return fetch(endpoint, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${process.env.REACT_APP_DAILY_CO}`
-        },
+    const result =  await functions.getDailyCoMeetings({
+        startingAfter: startingAfter
     })
-        .then(result => result.json())
+
+    if(!result || !result.data) {
+        throw new Error('something went wrong')
+    }
+
+    return result.data
 }
