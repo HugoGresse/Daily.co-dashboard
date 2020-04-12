@@ -5,12 +5,14 @@ import {Box} from '@material-ui/core'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 
-const GraphContainer = ({title, xs=12, sm=4, children}) => {
+const GraphContainer = ({title, xs=12, sm=4, header, children}) => {
     return  <Grid item xs={xs} sm={sm}>
         <Card>
             <CardContent>
+
+                    {header && header}
+                    {!header && <Typography variant="h5">{title}</Typography>}
                 <Box  height={400}>
-                    <Typography variant="h5">{title}</Typography>
                     {children}
                 </Box>
             </CardContent>
