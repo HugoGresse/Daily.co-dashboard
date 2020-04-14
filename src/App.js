@@ -18,28 +18,28 @@ import Header from './Header'
 // live:
 // ongoing call
 function App() {
-  const dispatch = useDispatch()
+    const dispatch = useDispatch()
 
-  useEffect(() => {
-    dispatch(getMeetings(true))
-  }, [dispatch])
+    useEffect(() => {
+        dispatch(getMeetings(true))
+    }, [dispatch])
 
-  return (
-    <Box marginTop={2}>
-      <CssBaseline />
-      <main>
-        <Container maxWidth="lg">
-          <Grid container spacing={3}>
-            <Header />
-            <Timeline />
-            <AverageSessionDuration />
-            <StartTimeByDay />
-            <NumberOfParticipants />
-          </Grid>
-        </Container>
-      </main>
-    </Box>
-  )
+    return (
+        <Box marginTop={2}>
+            <CssBaseline />
+            <main>
+                <Container maxWidth="lg" style={{ overflow: 'hidden' }}>
+                    <Grid container spacing={3}>
+                        <Header />
+                        <Timeline />
+                        <AverageSessionDuration />
+                        <StartTimeByDay />
+                        <NumberOfParticipants />
+                    </Grid>
+                </Container>
+            </main>
+        </Box>
+    )
 }
 
 export default App

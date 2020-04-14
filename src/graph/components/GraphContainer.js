@@ -6,17 +6,20 @@ import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 
 const GraphContainer = ({ title, xs = 12, sm = 4, header, children }) => {
-  return (
-    <Grid item xs={xs} sm={sm}>
-      <Card>
-        <CardContent>
-          {header && header}
-          {!header && <Typography variant="h5">{title}</Typography>}
-          <Box height={400}>{children}</Box>
-        </CardContent>
-      </Card>
-    </Grid>
-  )
+    return (
+        <Grid item xs={xs} sm={sm}>
+            <Card
+                style={{
+                    overflowX: 'visible',
+                }}>
+                <CardContent>
+                    {header && header}
+                    {!header && <Typography variant="h5">{title}</Typography>}
+                    <Box height={400}>{children}</Box>
+                </CardContent>
+            </Card>
+        </Grid>
+    )
 }
 
 export default GraphContainer
