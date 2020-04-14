@@ -4,8 +4,8 @@ import { useSelector } from 'react-redux'
 import {
     getDayGroupSelector,
     getMinMaxVolumes,
-    getStartTimeByDaySelector,
-} from '../data/selectors/getStartTimeByDaySelector'
+    getStartTimeByWeekdaySelector,
+} from '../data/selectors/getStartTimeByWeekdaySelector'
 import { ResponsiveSwarmPlot } from '@nivo/swarmplot'
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -19,8 +19,8 @@ const useStyles = makeStyles(() => ({
     },
 }))
 
-const StartTimeByDay = () => {
-    const data = useSelector(getStartTimeByDaySelector)
+const StartTimeByWeekday = () => {
+    const data = useSelector(getStartTimeByWeekdaySelector)
     const groups = useSelector(getDayGroupSelector)
     const [min, max] = useSelector(getMinMaxVolumes)
     const classes = useStyles()
@@ -87,4 +87,4 @@ const StartTimeByDay = () => {
     )
 }
 
-export default StartTimeByDay
+export default StartTimeByWeekday

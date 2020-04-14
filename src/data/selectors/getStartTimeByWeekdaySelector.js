@@ -2,7 +2,7 @@ import { createSelector } from 'reselect'
 import { getMeetingsSelector } from '../dailyCoSelectors'
 import { DateTime } from 'luxon'
 
-export const getStartTimeByDaySelector = createSelector(
+export const getStartTimeByWeekdaySelector = createSelector(
     getMeetingsSelector,
     (meetings) => {
         const meetingsByWeekday = meetings
@@ -33,7 +33,7 @@ export const getStartTimeByDaySelector = createSelector(
 )
 
 export const getDayGroupSelector = createSelector(
-    getStartTimeByDaySelector,
+    getStartTimeByWeekdaySelector,
     (meetings) => {
         return meetings
             .reduce((acc, item) => {
@@ -50,7 +50,7 @@ export const getDayGroupSelector = createSelector(
 )
 
 export const getMinMaxVolumes = createSelector(
-    getStartTimeByDaySelector,
+    getStartTimeByWeekdaySelector,
     (meetings) => {
         const min = meetings.reduce(
             (acc, curr) => (acc < curr.volume ? acc : curr.volume),

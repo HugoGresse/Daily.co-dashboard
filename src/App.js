@@ -6,7 +6,7 @@ import { Container } from '@material-ui/core'
 import Grid from '@material-ui/core/Grid'
 import AverageSessionDuration from './graph/AverageSessionDuration'
 import Box from '@material-ui/core/Box'
-import StartTimeByDay from './graph/StartTimeByDay'
+import StartTimeByWeekday from './graph/StartTimeByWeekday'
 import NumberOfParticipants from './graph/NumberOfParticipants'
 import Timeline from './graph/Timeline'
 import Header from './Header'
@@ -33,7 +33,7 @@ function App() {
                         <Header />
                         <Timeline />
                         <AverageSessionDuration />
-                        <StartTimeByDay />
+                        <StartTimeByWeekday />
                         <NumberOfParticipants />
                     </Grid>
                 </Container>
