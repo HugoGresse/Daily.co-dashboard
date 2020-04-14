@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { getMeetings } from './data/dailyCoActions'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { Container } from '@material-ui/core'
@@ -11,10 +11,7 @@ import NumberOfParticipants from './graph/NumberOfParticipants'
 import Timeline from './graph/Timeline'
 import Header from './Header'
 
-// call that should be ended
-// number of call ended, started, ongoing
 // duration when two participants in a call
-
 // live:
 // ongoing call
 function App() {

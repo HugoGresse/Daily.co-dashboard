@@ -10,7 +10,7 @@ const GraphContainer = ({ title, xs = 12, sm = 4, header, children }) => {
         <Grid item xs={xs} sm={sm}>
             <Card
                 style={{
-                    overflowX: 'visible',
+                    overflow: 'visible',
                 }}>
                 <CardContent>
                     {header && header}
