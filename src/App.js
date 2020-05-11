@@ -9,16 +9,13 @@ import Box from '@material-ui/core/Box'
 import StartTimeByWeekday from './graph/StartTimeByWeekday'
 import NumberOfParticipants from './graph/NumberOfParticipants'
 import Timeline from './graph/Timeline'
-import Header from './Header'
+import Header from './components/Header'
 
-// duration when two participants in a call
-// live:
-// ongoing call
 function App() {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getMeetings(true))
+        dispatch(getMeetings(false))
     }, [dispatch])
 
     return (
