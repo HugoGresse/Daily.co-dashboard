@@ -1,59 +1,70 @@
 import React, { useState } from 'react'
-import { getStartedCallByDaySelector } from '../data/selectors/getStartedCallByDaySelector'
-import { getAverageParticipantsByDaySelector } from '../data/selectors/getAverageParticipantsByDaySelector'
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup'
 import ToggleButton from '@material-ui/lab/ToggleButton'
 import TimelineGraph from './TimelineGraph'
 import GraphContainer from './components/GraphContainer'
 import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
-import { getAverageDurationByDaySelector } from '../data/selectors/getAverageDurationByDaySelector'
+import {
+    getAloneParticipantFor2Minutes,
+    getAloneParticipantFor4Minutes,
+} from '../data/selectors/getAloneParticipantForXMinutesSelector'
+import { getNumberOfRoomWithTwoOrMoreParticipantFor4MinutesSelector } from '../data/selectors/getNumberOfRoomWithTwoOrMoreParticipantFor4MinutesSelector'
+import { getUpdatedAverageDurationByDaySelector } from '../data/selectors/getAverageDurationByDaySelector'
 
-const Timeline = () => {
+const ParticipantAndDurationTimeline = () => {
     const [selectedData, setSelectedData] = useState(null)
     const onGraphSelected = (e) => {
         switch (e.currentTarget.value) {
-            case 'participants':
+            default:
+            case 'avg_duration_2+': {
                 setSelectedData({
                     value: e.currentTarget.value,
                     plots: [
                         {
-                            selector: getAverageParticipantsByDaySelector,
-                            name: ' average participants',
-                        },
-                    ],
-                    graphName: 'Average participants by call',
-                })
-                break
-            case 'duration':
-                setSelectedData({
-                    value: e.currentTarget.value,
-                    plots: [
-                        {
-                            selector: getAverageDurationByDaySelector,
-                            name: ' average min',
+                            selector: getUpdatedAverageDurationByDaySelector,
+                            name: ' minutes',
                         },
                     ],
                     graphName:
-                        'Average room duration (minutes, 1+ participants)',
+                        'Avg call duration when 2+ people are in the call at the same time',
                 })
                 break
-            default:
-            case 'call':
+            }
+            case '2+participant4+min':
                 setSelectedData({
                     value: e.currentTarget.value,
                     plots: [
                         {
-                            selector: getStartedCallByDaySelector,
-                            name: 'started call',
+                            selector: getNumberOfRoomWithTwoOrMoreParticipantFor4MinutesSelector,
+                            name: ' rooms',
                         },
                     ],
-                    graphName: 'Number of call started',
+                    graphName:
+                        'Number of room with 2+ people at the same time for 4+ minutes',
                 })
+                break
+            case 'oneperson_twominutes':
+                setSelectedData({
+                    value: e.currentTarget.value,
+                    plots: [
+                        {
+                            selector: getAloneParticipantFor2Minutes,
+                            name: ' alone people for 2 minutes',
+                        },
+                        {
+                            selector: getAloneParticipantFor4Minutes,
+                            name: ' alone people for 4 minutes',
+                        },
+                    ],
+                    graphName:
+                        'Number of single participant on a meeting for 2/4 minutes',
+                })
+                break
         }
     }
     if (!selectedData) {
-        onGraphSelected({ currentTarget: { value: 'call' } })
+        onGraphSelected({ currentTarget: { value: 'avg_duration_2+' } })
         return ''
     }
 
@@ -71,15 +82,19 @@ const Timeline = () => {
                         onChange={onGraphSelected}
                         aria-label="text alignment">
                         <ToggleButton
-                            value="participants"
+                            value="avg_duration_2+"
                             aria-label="left aligned">
-                            Participants
+                            Call duration with 2+ participants
                         </ToggleButton>
-                        <ToggleButton value="duration" aria-label="centered">
-                            Average duration
+                        <ToggleButton
+                            value="oneperson_twominutes"
+                            aria-label="left aligned">
+                            Single participant room for 2/4 min
                         </ToggleButton>
-                        <ToggleButton value="call" aria-label="right aligned">
-                            Call started
+                        <ToggleButton
+                            value="2+participant4+min"
+                            aria-label="centered">
+                            2+ participants for 4+ min
                         </ToggleButton>
                     </ToggleButtonGroup>
                 </Box>
@@ -94,4 +109,4 @@ const Timeline = () => {
     )
 }
 
-export default Timeline
+export default ParticipantAndDurationTimeline

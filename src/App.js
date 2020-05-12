@@ -10,6 +10,7 @@ import StartTimeByWeekday from './graph/StartTimeByWeekday'
 import NumberOfParticipants from './graph/NumberOfParticipants'
 import Timeline from './graph/Timeline'
 import Header from './components/Header'
+import ParticipantAndDurationTimeline from './graph/ParticipantAndDurationTimeline'
 
 function App() {
     const dispatch = useDispatch()
@@ -26,6 +27,7 @@ function App() {
                     <Grid container spacing={3}>
                         <Header />
                         <Timeline />
+                        <ParticipantAndDurationTimeline />
                         <AverageSessionDuration />
                         <StartTimeByWeekday />
                         <NumberOfParticipants />
