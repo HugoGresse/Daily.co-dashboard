@@ -5,7 +5,7 @@ import { DateRangePicker } from 'react-dates'
 import * as moment from 'moment'
 
 const isOutsideRange = (day) => {
-    return day.valueOf() > Date.now()
+    return day.valueOf() > moment().add(1, 'd').valueOf()
 }
 
 const DateTimePicker = ({

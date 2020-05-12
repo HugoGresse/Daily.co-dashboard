@@ -35,15 +35,13 @@ const Header = () => {
                     justifyContent="space-between">
                     <DateTimePicker
                         onClose={(startDate, endDate) => {
-                            console.log('close')
-                            console.log(startDate, endDate)
-                            dispatch(setDates(startDate, endDate))
+                            dispatch(setDates(startDate.unix(), endDate.unix()))
                             dispatch(getMeetings())
                         }}
                     />
 
                     {isLoading && (
-                        <Box margin={1}>
+                        <Box>
                             <CircularProgress />
                         </Box>
                     )}

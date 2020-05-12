@@ -6,46 +6,37 @@ import {
 } from './dailyCoReducer'
 import {
     getEndDateSelector,
+    getIdLoadingSelector,
     getStartDateSelector,
-    isLoadedSelector,
 } from './dailyCoSelectors'
 import { functions } from './firebase'
 
-export const getMeetings = (fetchAll = false) => async (dispatch, getState) => {
+export const getMeetings = () => async (dispatch, getState) => {
     const startDate = getStartDateSelector(getState())
     const endDate = getEndDateSelector(getState())
-
-    console.log(startDate, endDate)
+    const idLoading = Date.now()
 
     dispatch({
         type: MEETINGS_LOADING,
+        payload: idLoading,
     })
 
     const meetings = []
-    if (fetchAll) {
-        let timestampStartingAfter = 0
-        while (true) {
-            const result = await fetchMeetings(timestampStartingAfter)
-            if (result.data.length === 0) {
-                break
-            }
-            meetings.push(...result.data)
-            timestampStartingAfter = result.data[result.data.length - 1].id
-            dispatch({
-                type: MEETINGS_GET_SUCCESS,
-                payload: {
-                    meetingCount: meetings.length,
-                    data: meetings,
-                },
-            })
-        }
 
-        dispatch({
-            type: MEETINGS_LOADED,
-        })
-    } else {
-        const result = await fetchMeetings()
+    let startingAfterId = 0
+    // eslint-disable-next-line no-constant-condition
+    while (true) {
+        const existingIdLoading = getIdLoadingSelector(getState())
+        if (existingIdLoading && existingIdLoading !== idLoading) {
+            console.info('Canceling previous load')
+            break
+        }
+        const result = await fetchMeetings(startingAfterId, startDate, endDate)
+        if (result.data.length === 0) {
+            break
+        }
         meetings.push(...result.data)
+        startingAfterId = result.data[result.data.length - 1].id
         dispatch({
             type: MEETINGS_GET_SUCCESS,
             payload: {
@@ -53,10 +44,11 @@ export const getMeetings = (fetchAll = false) => async (dispatch, getState) => {
                 data: meetings,
             },
         })
-        dispatch({
-            type: MEETINGS_LOADED,
-        })
     }
+
+    dispatch({
+        type: MEETINGS_LOADED,
+    })
 }
 
 export const setDates = (startDate, endDate) => async (dispatch) => {
@@ -73,9 +65,11 @@ export const setDates = (startDate, endDate) => async (dispatch) => {
     })
 }
 
-const fetchMeetings = async (startingAfter) => {
+const fetchMeetings = async (startingAfter, timeframeStart, timeframeEnd) => {
     const result = await functions.getDailyCoMeetings({
-        startingAfter: startingAfter,
+        startingAfter,
+        timeframeStart,
+        timeframeEnd,
     })
 
     if (!result || !result.data) {
