@@ -34,7 +34,8 @@ const Timeline = () => {
                             name: ' average min',
                         },
                     ],
-                    graphName: 'Average call duration (minutes)',
+                    graphName:
+                        'Average room duration (minutes, 1+ participants)',
                 })
                 break
             default:
@@ -47,7 +48,7 @@ const Timeline = () => {
                             name: 'started call',
                         },
                     ],
-                    graphName: 'Number of call started/ended',
+                    graphName: 'Number of call started',
                 })
         }
     }
@@ -78,7 +79,7 @@ const Timeline = () => {
                             Average duration
                         </ToggleButton>
                         <ToggleButton value="call" aria-label="right aligned">
-                            Call started/ended
+                            Call started
                         </ToggleButton>
                     </ToggleButtonGroup>
                 </Box>
