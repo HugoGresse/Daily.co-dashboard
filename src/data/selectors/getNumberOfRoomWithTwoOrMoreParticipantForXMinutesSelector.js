@@ -1,16 +1,17 @@
 import { createSelector } from 'reselect'
-import { getFilterSelector, getStartedMeetingByDay } from '../dailyCoSelectors'
+import { getStartedMeetingByDayWithUpdatedCallDuration } from './getStartedMeetingByDayWithUpdatedDuration'
 import { FILTER_MODE_MAX, FILTER_MODE_MIN } from '../dailyCoActions'
+import { getFilterSelector } from '../dailyCoSelectors'
 
-export const getAloneParticipantForXMinutes = createSelector(
-    getStartedMeetingByDay,
+export const getNumberOfRoomWithTwoOrMoreParticipantForXMinutesSelector = createSelector(
+    getStartedMeetingByDayWithUpdatedCallDuration,
     getFilterSelector,
     (meetingsByDay, filter) => {
         return meetingsByDay.map((dayWithMeetings) => {
             const { dateTime, meetings } = dayWithMeetings
 
             const filteredMeetings = meetings
-                .filter((meeting) => meeting.participants.length === 1)
+                .filter((meeting) => meeting.participants.length >= 2)
                 .filter((meeting) => {
                     switch (filter.mode) {
                         default:

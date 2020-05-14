@@ -10,6 +10,7 @@ export const getIdLoadingSelector = (state) =>
 export const getStartDateSelector = (state) =>
     getDailyCoSelector(state).startDate
 export const getEndDateSelector = (state) => getDailyCoSelector(state).endDate
+export const getFilterSelector = (state) => getDailyCoSelector(state).filter
 
 export const getStartedMeetingByDay = createSelector(
     getMeetingsSelector,
