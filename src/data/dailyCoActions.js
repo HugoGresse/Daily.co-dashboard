@@ -3,6 +3,7 @@ import {
     MEETINGS_LOADED,
     MEETINGS_LOADING,
     SET_DATES,
+    SET_FILTER,
 } from './dailyCoReducer'
 import {
     getEndDateSelector,
@@ -62,6 +63,18 @@ export const setDates = (startDate, endDate) => async (dispatch) => {
     dispatch({
         type: SET_DATES,
         payload,
+    })
+}
+
+export const FILTER_MODE_MIN = 1
+export const FILTER_MODE_MAX = 2
+export const setFilter = (mode, minutes) => (dispatch) => {
+    dispatch({
+        type: SET_FILTER,
+        payload: {
+            mode,
+            minutes,
+        },
     })
 }
 
