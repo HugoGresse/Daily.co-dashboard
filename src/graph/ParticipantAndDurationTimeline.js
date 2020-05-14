@@ -17,16 +17,19 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getFilterSelector } from '../data/dailyCoSelectors'
 import TextField from '@material-ui/core/TextField'
 
+const GRAPH_AVG_DURATION = 'avg_duration_2+'
+const GRAPH_ROOM_NMB_2PART = '2+participantxmin'
+const GRAPH_ONE_PERSON_XMIN = 'oneperson_xminutes'
 const ParticipantAndDurationTimeline = () => {
     const [selectedData, setSelectedData] = useState(null)
-    const [selectedGraph, setSelectedGraph] = useState('avg_duration_2+')
+    const [selectedGraph, setSelectedGraph] = useState(GRAPH_AVG_DURATION)
     const currentFilter = useSelector(getFilterSelector)
     const dispatch = useDispatch()
     const onGraphSelected = (e) => {
         setSelectedGraph(e.currentTarget.value)
         switch (e.currentTarget.value) {
             default:
-            case 'avg_duration_2+': {
+            case GRAPH_AVG_DURATION: {
                 setSelectedData({
                     value: e.currentTarget.value,
                     plots: [
@@ -40,7 +43,7 @@ const ParticipantAndDurationTimeline = () => {
                 })
                 break
             }
-            case '2+participant4+min':
+            case GRAPH_ROOM_NMB_2PART:
                 setSelectedData({
                     value: e.currentTarget.value,
                     plots: [
@@ -52,7 +55,7 @@ const ParticipantAndDurationTimeline = () => {
                     graphName: `Number of room with 2+ people at the same time for ${currentFilter.minutes} minutes`,
                 })
                 break
-            case 'oneperson_twominutes':
+            case GRAPH_ONE_PERSON_XMIN:
                 setSelectedData({
                     value: e.currentTarget.value,
                     plots: [
@@ -103,51 +106,53 @@ const ParticipantAndDurationTimeline = () => {
                             onChange={onGraphSelected}
                             aria-label="text alignment">
                             <ToggleButton
-                                value="avg_duration_2+"
+                                value={GRAPH_AVG_DURATION}
                                 aria-label="left aligned">
                                 Call duration with 2+ participants
                             </ToggleButton>
                             <ToggleButton
-                                value="oneperson_twominutes"
+                                value={GRAPH_ROOM_NMB_2PART}
                                 aria-label="left aligned">
                                 Single participant room for{' '}
                                 {currentFilter.minutes} min
                             </ToggleButton>
                             <ToggleButton
-                                value="2+participant4+min"
+                                value={GRAPH_ONE_PERSON_XMIN}
                                 aria-label="centered">
                                 2+ participants for {currentFilter.minutes} min
                             </ToggleButton>
                         </ToggleButtonGroup>
                     </Box>
-                    <Box display="flex" justifyContent="flex-end">
-                        <TextField
-                            id="minutes"
-                            label="Minutes"
-                            type="number"
-                            value={currentFilter.minutes}
-                            onChange={onFilterMinuteChange}
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                        />
-                        <ToggleButtonGroup
-                            value={currentFilter.mode}
-                            exclusive
-                            onChange={onFilterModeChange}
-                            aria-label="text alignment">
-                            <ToggleButton
-                                value={FILTER_MODE_MIN}
-                                aria-label="left aligned">
-                                MIN
-                            </ToggleButton>
-                            <ToggleButton
-                                value={FILTER_MODE_MAX}
-                                aria-label="left aligned">
-                                MAX
-                            </ToggleButton>
-                        </ToggleButtonGroup>
-                    </Box>
+                    {selectedGraph !== GRAPH_AVG_DURATION && (
+                        <Box display="flex" justifyContent="flex-end">
+                            <TextField
+                                id="minutes"
+                                label="Minutes"
+                                type="number"
+                                value={currentFilter.minutes}
+                                onChange={onFilterMinuteChange}
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                            />
+                            <ToggleButtonGroup
+                                value={currentFilter.mode}
+                                exclusive
+                                onChange={onFilterModeChange}
+                                aria-label="text alignment">
+                                <ToggleButton
+                                    value={FILTER_MODE_MIN}
+                                    aria-label="left aligned">
+                                    MIN
+                                </ToggleButton>
+                                <ToggleButton
+                                    value={FILTER_MODE_MAX}
+                                    aria-label="left aligned">
+                                    MAX
+                                </ToggleButton>
+                            </ToggleButtonGroup>
+                        </Box>
+                    )}
                 </>
             }>
             {selectedData && (
