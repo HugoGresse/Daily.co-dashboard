@@ -25,13 +25,13 @@ const ParticipantAndDurationTimeline = () => {
     const [selectedGraph, setSelectedGraph] = useState(GRAPH_AVG_DURATION)
     const currentFilter = useSelector(getFilterSelector)
     const dispatch = useDispatch()
-    const onGraphSelected = (e) => {
-        setSelectedGraph(e.currentTarget.value)
-        switch (e.currentTarget.value) {
+
+    useEffect(() => {
+        switch (selectedGraph) {
             default:
             case GRAPH_AVG_DURATION: {
                 setSelectedData({
-                    value: e.currentTarget.value,
+                    value: selectedGraph,
                     plots: [
                         {
                             selector: getUpdatedAverageDurationByDaySelector,
@@ -45,7 +45,7 @@ const ParticipantAndDurationTimeline = () => {
             }
             case GRAPH_ROOM_NMB_2PART:
                 setSelectedData({
-                    value: e.currentTarget.value,
+                    value: selectedGraph,
                     plots: [
                         {
                             selector: getNumberOfRoomWithTwoOrMoreParticipantForXMinutesSelector,
@@ -57,7 +57,7 @@ const ParticipantAndDurationTimeline = () => {
                 break
             case GRAPH_ONE_PERSON_XMIN:
                 setSelectedData({
-                    value: e.currentTarget.value,
+                    value: selectedGraph,
                     plots: [
                         {
                             selector: getAloneParticipantForXMinutes,
@@ -68,11 +68,12 @@ const ParticipantAndDurationTimeline = () => {
                 })
                 break
         }
-    }
-
-    useEffect(() => {
-        onGraphSelected({ currentTarget: { value: selectedGraph } })
-    }, [currentFilter])
+    }, [
+        selectedGraph,
+        setSelectedData,
+        currentFilter.minutes,
+        currentFilter.mode,
+    ])
 
     const onFilterMinuteChange = (e) => {
         const minutes = e.currentTarget.value
@@ -86,8 +87,11 @@ const ParticipantAndDurationTimeline = () => {
         )
     }
 
+    const onGraphSelected = (e) => {
+        setSelectedGraph(e.currentTarget.value)
+    }
+
     if (!selectedData) {
-        onGraphSelected({ currentTarget: { value: selectedGraph } })
         return ''
     }
 
