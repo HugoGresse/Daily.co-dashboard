@@ -115,13 +115,13 @@ const ParticipantAndDurationTimeline = () => {
                                 Call duration with 2+ participants
                             </ToggleButton>
                             <ToggleButton
-                                value={GRAPH_ROOM_NMB_2PART}
+                                value={GRAPH_ONE_PERSON_XMIN}
                                 aria-label="left aligned">
                                 Single participant room for{' '}
                                 {currentFilter.minutes} min
                             </ToggleButton>
                             <ToggleButton
-                                value={GRAPH_ONE_PERSON_XMIN}
+                                value={GRAPH_ROOM_NMB_2PART}
                                 aria-label="centered">
                                 2+ participants for {currentFilter.minutes} min
                             </ToggleButton>
