@@ -1,6 +1,6 @@
 # Daily.co unofficial dashboard
 
-Some stats for Daily.co video call services. 
+Some stats for Daily.co video call services (there is more than in the screenshots). Also feature a real call duration which is the sum of the duration when 2 or more people are in the same call. 
 
 ![Screenshot](https://raw.githubusercontent.com/HugoGresse/Daily.co-dashboard/master/public/screenshot.png)
 
