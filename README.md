@@ -21,7 +21,10 @@ Some stats for Daily.co video call services (there is more than in the screensho
 4. `cd functions && npm run serve`
 5. `npm start`
 
+
 # About
 Open source project made by [Hugo Gresse](https://hugo.gresse.io)  
-Hugo other projects:
-- [Open Feedback (event feedback SASS)](https://openfeedback.io/)
+My other open source projects:
+- [Open Feedback (speaker/conference/meetup event feedback SASS)](https://openfeedback.io/)
+- [ICAL2API (.ical aggregation with admin, slack reminders, public page)](https://github.com/HugoGresse/Ical2Api)
+- [Fill My Slides (Google Slide as template for generating thumbnail using .json data)](https://github.com/HugoGresse/Fill-My-Slides)
